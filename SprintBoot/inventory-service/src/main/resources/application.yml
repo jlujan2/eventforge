@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: inventory-service
+
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+      - localhost:9094
+      - localhost:9095
+
+    consumer:
+      group-id: inventory-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.value.default.type: com.eventforge.inventoryservice.event.OrderCreatedEvent
+        spring.json.trusted.packages: "com.eventforge.*"
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JacksonJsonSerializer
+      properties:
+        spring.json.add.type.headers: false
+
+server:
+  port: 8081

@@ -1,0 +1,35 @@
+# IntelliJ
+.idea/
+*.iml
+out/
+
+# Gradle
+.gradle/
+**/.gradle/
+build/
+**/build/
+
+# Java
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Local env / secrets
+.env
+.env.*
+application-local.yml
+application-local.yaml
+
+# Local runtime/data
+data/
+postgres-data/
+tmp/
+temp/
