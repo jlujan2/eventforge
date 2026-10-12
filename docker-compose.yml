@@ -58,3 +58,31 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
       CLUSTER_ID: MkU3OEVBNTcwNTJENDM2Qk
+      
+  postgres:
+    image: postgres:17
+    container_name: eventforge-postgres
+    environment:
+      POSTGRES_DB: inventorydb
+      POSTGRES_USER: eventforge
+      POSTGRES_PASSWORD: eventforge
+    ports:
+      - "5432:5432"
+    volumes:
+      - eventforge-postgres-data:/var/lib/postgresql/data
+  
+  kafbat-ui:
+    image: ghcr.io/kafbat/kafka-ui:latest
+    container_name: kafbat-ui
+    ports:
+      - "8085:8080"
+    environment:
+      KAFKA_CLUSTERS_0_NAME: eventforge
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker-1:29092,broker-2:29092,broker-3:29092
+    depends_on:
+      - broker-1
+      - broker-2
+      - broker-3
+      
+volumes:
+  eventforge-postgres-data:
